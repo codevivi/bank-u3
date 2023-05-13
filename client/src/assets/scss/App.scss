@@ -1,0 +1,28 @@
+.App {
+  padding-top: 6.5rem;
+  margin: auto;
+  background-color: $accent;
+  background-color: white;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.container {
+  max-width: 1400px;
+  padding: 0 2em;
+  margin: auto;
+}
+.main {
+  flex: 1;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: $margin-large;
+  color: $accent;
+  text-shadow: 0.5px 0.5px 1px $dark;
+}
