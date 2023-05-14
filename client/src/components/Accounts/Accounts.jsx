@@ -22,7 +22,7 @@ export default function Accounts() {
     <section className="accounts">
       <h1>Sąskaitos</h1>
       <div className="top">
-        <Stats accounts={accounts} />
+        <Stats />
         <button className="open-btn" onClick={() => setAddAccountModalOpen(true)}>
           Pridėti sąskaitą
         </button>

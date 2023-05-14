@@ -1,25 +1,25 @@
-import Accounts from "./components/Accounts/Accounts";
-import Header from "./components/Parts/Header";
-import Footer from "./components/Parts/Footer";
-import Messages from "./components/Messages/Messages";
-import { useEffect, useState } from "react";
-import { GlobalProvider, GlobalContext } from "./Contexts/GlobalCtx";
-import { useContext } from "react";
+import { GlobalProvider } from "./Contexts/GlobalCtx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import HomePage from "./pages/HomePage";
+import AccountsPage from "./pages/AccountsPage.jsx";
+import LoginPage from "./pages/LoginPage";
 import { AccountsProvider } from "./Contexts/AccountsCtx";
 
 function App() {
   return (
     <GlobalProvider>
-      <div className="App">
-        <Header />
-        <main className="container main">
-          <Messages />
-          <AccountsProvider>
-            <Accounts />
-          </AccountsProvider>
-        </main>
-        <Footer />
-      </div>
+      <AccountsProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="/accounts" element={<AccountsPage />} />;
+              <Route path="/login" element={<LoginPage />} />;
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AccountsProvider>
     </GlobalProvider>
   );
 }
