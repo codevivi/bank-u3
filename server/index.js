@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { writeFile, readFile } from "node:fs/promises";
-import { v4 as uuid } from "uuid";
+import { accountsModel } from "./src/models/allModels.js";
 
 const PORT = 5000;
 const DB = "./Data/data.json";
@@ -19,8 +18,7 @@ app.get("/", (req, res) => {
 
 app.get("/accounts", async (req, res) => {
   try {
-    const data = await readFile(DB, "utf-8");
-    const accounts = JSON.parse(data);
+    const accounts = await accountsModel.getAll();
     res.json({
       message: "OK",
       accounts,
@@ -35,14 +33,7 @@ app.get("/accounts", async (req, res) => {
 
 app.post("/accounts", async (req, res) => {
   try {
-    // throw new Error();
-    let data = await readFile(DB, "utf-8");
-    data = JSON.parse(data);
-    const id = uuid();
-    const account = { ...req.body.account, id };
-    data.push(account);
-    data = JSON.stringify(data);
-    await writeFile(DB, data);
+    const id = await accountsModel.add(req.body.account);
     res.json({
       message: "OK",
       promiseId: req.body.promiseId,
@@ -59,12 +50,7 @@ app.post("/accounts", async (req, res) => {
 
 app.put("/accounts/:id", async (req, res) => {
   try {
-    // throw new Error();
-    let data = await readFile(DB, "utf-8");
-    data = JSON.parse(data);
-    data = data.map((account) => (account.id === req.params.id ? { ...account, ...req.body.account } : { ...account }));
-    data = JSON.stringify(data);
-    await writeFile(DB, data);
+    await accountsModel.update(req.params.id, req.body.account);
     res.json({
       message: "OK",
       promiseId: req.body.promiseId,
@@ -81,12 +67,7 @@ app.put("/accounts/:id", async (req, res) => {
 
 app.delete("/accounts/:id", async (req, res) => {
   try {
-    // throw new Error();
-    let data = await readFile(DB, "utf-8");
-    data = JSON.parse(data);
-    data = data.filter((account) => account.id !== req.params.id);
-    data = JSON.stringify(data);
-    await writeFile(DB, data);
+    await accountsModel.delete(req.params.id);
     res.json({
       message: "OK",
     });
