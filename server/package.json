@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js --ignore data.json",
+    "dev": "nodemon index.js --ignore Data/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "uuid": "^9.0.0"
