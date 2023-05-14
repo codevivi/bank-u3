@@ -11,9 +11,9 @@ function useMessages() {
   const deleteMsg = (id) => {
     setMessages((prevMessages) => [...prevMessages].filter((msg) => msg.id !== id));
   };
-  const deleteAllMsg = () => {
+  const deleteAllMsg = useCallback(() => {
     setMessages([]);
-  };
+  }, []);
 
   return [messages, addMsg, deleteMsg, deleteAllMsg];
 }

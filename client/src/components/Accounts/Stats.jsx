@@ -3,6 +3,10 @@ import formatCurrency from "../../utils/formatCurrency";
 import { AccountsContext } from "../../Contexts/AccountsCtx";
 function Stats() {
   const { accounts } = useContext(AccountsContext);
+
+  if (accounts === null) {
+    return null;
+  }
   const totalMoneyInAllAccounts = formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0));
 
   return (
