@@ -8,6 +8,14 @@ $orange: #f58f29;
 $red: #ff101f;
 $margin-large: 2.5rem;
 
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
 button {
   font-size: 12px;
   font-weight: bold;

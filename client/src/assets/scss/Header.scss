@@ -10,6 +10,35 @@
   left: 0;
   top: 0;
   z-index: 10;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    nav {
+      ul {
+        display: inline-flex;
+        align-items: center;
+        justify-content: right;
+        list-style: none;
+        li {
+          a {
+            text-transform: uppercase;
+            padding: 0.5em 1em;
+            border: 2px solid $accent;
+            color: $accent;
+            border-radius: 5px;
+            &:hover,
+            &:focus {
+              box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.473);
+            }
+            &.active {
+              border-top: 5px solid $accent;
+            }
+          }
+        }
+      }
+    }
+  }
   .logo {
     display: inline-flex;
     align-items: flex-end;

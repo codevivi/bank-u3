@@ -6,9 +6,9 @@ Banką sudaro du puslapiai su bendru meniu ir prisijungimo puslapis
 
 **Pirmame puslapyje (home) pateikta bendra informacija apie banką**:
 
-- [] klientų skaičius ir bendra laikoma suma.
+- [x] klientų skaičius ir bendra laikoma suma.
 
-- [] Taip pat patalpinti kažkokie grafiniai elementai, užpildantys puslapį.
+- [x] Taip pat patalpinti kažkokie grafiniai elementai, užpildantys puslapį.
 
 - [] Į šį puslapį gali patekti ir prisijungę ir neprisijungę vartotojai.
 
@@ -38,8 +38,8 @@ Banką sudaro du puslapiai su bendru meniu ir prisijungimo puslapis
 
 **Prisijungimo puslapis**:
 
-- [] meniu neturi.
+- [x] meniu neturi.
 
-- [] Vartotojai (vardas ir slaptažodžio hash) rankiniu būdu surašyti į JSON failą patalpintą Express serveryje.
+- [x] Vartotojai (vardas ir slaptažodžio hash) rankiniu būdu surašyti į JSON failą patalpintą Express serveryje (Kacius, kacius@pele.lt : Kacius123; Pelius, pelius@pele.lt:Pelius123).
 
 Meniu keičiasi priklausomai ar puslapyje yrra prisijungęs vartotojas ar ne. Prisijungusiam vartotojui meniu yra rodomas atsijungimo mygtukas ir jo vardas, o neprisijungusiam- linkas į prisijungimo puslapį.
