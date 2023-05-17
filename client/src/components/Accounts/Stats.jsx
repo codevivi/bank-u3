@@ -1,23 +1,16 @@
 import { useContext } from "react";
 import formatCurrency from "../../utils/formatCurrency";
 import { AccountsContext } from "../../Contexts/AccountsCtx";
-function Stats() {
-  const { accounts } = useContext(AccountsContext);
-
-  if (accounts === null) {
-    return null;
-  }
-  const totalMoneyInAllAccounts = formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0));
-
+function Stats({ stats }) {
   return (
     <div className="info">
       <p>
         <span className="info-header">Klientų skaičius: </span>
-        <span className="info-stat">{accounts.length}</span>
+        <span className="info-stat">{stats !== null && stats.count}</span>
       </p>
       <p>
         <span className="info-header">Bendra laikoma suma: </span>
-        <span className="info-stat">{totalMoneyInAllAccounts}</span>
+        <span className="info-stat">{stats !== null && formatCurrency(stats.totalMoney)}</span>
       </p>
     </div>
   );

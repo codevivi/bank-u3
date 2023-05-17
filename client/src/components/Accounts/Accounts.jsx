@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddAccount from "./AddAccount";
 import OneAccountRow from "./OneAccountRow";
 import Filter from "./Filter";
 import Stats from "./Stats";
 import { useContext } from "react";
-// import { GlobalContext } from "../../Contexts/GlobalCtx";
 import { AccountsContext } from "../../Contexts/AccountsCtx";
+import { GlobalContext } from "../../Contexts/GlobalCtx";
 
 export default function Accounts() {
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
   const { accounts, displayAccounts, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount } = useContext(AccountsContext);
+  const { stats, setStatsUpdateTime } = useContext(GlobalContext);
+  useEffect(() => {
+    if (accounts === null) {
+      return;
+    }
+    console.log("updating accounts");
+    setStatsUpdateTime(Date.now());
+    console.log("should update stats");
+  }, [accounts]);
 
   if (accounts === null || displayAccounts === null) {
     return (
@@ -22,7 +31,7 @@ export default function Accounts() {
     <section className="accounts">
       <h1>Sąskaitos</h1>
       <div className="top">
-        <Stats />
+        <Stats stats={stats} />
         <button className="open-btn" onClick={() => setAddAccountModalOpen(true)}>
           Pridėti sąskaitą
         </button>

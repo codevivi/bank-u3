@@ -12,7 +12,6 @@ function useAccounts() {
   const [newAccount, setNewAccount] = useState(null);
   const [deleteAccount, setDeleteAccount] = useState(null);
   const [updateAccount, setUpdateAccount] = useState(null); //will save object with old(for save if server fails to delete) and new(updated) account
-
   const { addMsg } = useContext(GlobalContext);
 
   const URL = "http://localhost:5000/accounts";
