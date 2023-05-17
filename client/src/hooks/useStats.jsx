@@ -8,7 +8,7 @@ function useStats() {
 
   useEffect(() => {
     axios
-      .get(URL)
+      .get(URL, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message === "OK") {
           setStats(res.data.stats);

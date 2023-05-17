@@ -15,7 +15,7 @@ function useLogin(addMsg) {
     }
 
     axios
-      .post("http://localhost:5000/login", { loginDetails: loginDetails })
+      .post("http://localhost:5000/login", { loginDetails: loginDetails }, { headers: { withCredentials: true } })
       .then((res) => {
         setLoginResponse(res.data);
       })

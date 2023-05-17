@@ -21,14 +21,21 @@ app.use(
     store: new FileStore(fileStoreOptions),
     resave: false,
     name: "mySession",
-    saveUninitialized: true,
-    cookie: { secure: false }, //use true for production, will only work on https
+    saveUninitialized: false,
+    cookie: { secure: false, httpOnly: true }, //use true for production, will only work on https
   })
 );
+
+function addHeaders(req, res, next) {
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+  next();
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(addHeaders);
 app.get("/", (req, res) => {
   res.send("Server is running");
 });

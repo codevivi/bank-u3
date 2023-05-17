@@ -23,7 +23,7 @@ function useAccounts() {
   // get from db
   useEffect(() => {
     axios
-      .get(URL)
+      .get(URL, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
@@ -57,7 +57,7 @@ function useAccounts() {
     addMsg({ type: "success", text: `Kliento (${newAccount.name} ${newAccount.surname}) sąskaita  sėkmingai sukurta.` });
 
     axios
-      .post(URL, { account: newAccount, promiseId })
+      .post(URL, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
@@ -79,7 +79,7 @@ function useAccounts() {
     setAccounts((accounts) => accounts.filter((account) => account.id !== deleteAccount.id));
 
     axios
-      .delete(URL + "/" + deleteAccount.id)
+      .delete(URL + "/" + deleteAccount.id, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
@@ -100,7 +100,7 @@ function useAccounts() {
     setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.old.id ? { ...account, ...updateAccount.new, promiseId } : { ...account }))); //old and new id same
 
     axios
-      .put(URL + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId })
+      .put(URL + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
