@@ -4,6 +4,7 @@ import { accountsModel, usersModel } from "./src/models/allModels.js";
 import session from "express-session";
 import sessionFileStore from "session-file-store";
 import { comparePassword } from "./src/utils/crypt.js";
+import addHeaders from "./src/middlewares/addHeaders.js";
 
 const PORT = 5000;
 const DB = "./Data/data.json";
@@ -25,12 +26,6 @@ app.use(
     cookie: { secure: false, httpOnly: true }, //use true for production, will only work on https
   })
 );
-
-function addHeaders(req, res, next) {
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  next();
-}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
