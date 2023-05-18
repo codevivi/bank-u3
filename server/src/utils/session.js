@@ -1,6 +1,6 @@
 import session from "express-session";
 import sessionFileStore from "session-file-store";
-import { SESSION_SECRET, NODE_ENV } from "./config.js";
+import { SESSION_SECRET, NODE_ENV, SESSION_COOKIE_NAME } from "./config.js";
 
 const FileStore = sessionFileStore(session);
 
@@ -9,7 +9,7 @@ const fileStoreOptions = {
 };
 
 const sessionOptions = {
-  name: "mySession",
+  name: SESSION_COOKIE_NAME,
   secret: SESSION_SECRET, //this should be stored in env
   store: new FileStore(fileStoreOptions),
   resave: false,
@@ -17,7 +17,7 @@ const sessionOptions = {
   cookie: {
     secure: NODE_ENV === "development" ? false : true, //but then for dev needs trust proxy, 1
     httpOnly: true,
-    name: "mySession",
+    name: SESSION_COOKIE_NAME,
   },
 };
 

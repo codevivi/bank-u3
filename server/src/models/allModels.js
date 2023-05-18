@@ -8,7 +8,6 @@ class AccountsModel extends BaseModel {
   }
   async getAllAccountsCount() {
     let data = await this.getAll(this.path, "utf-8");
-    console.log(data, "get all account count lenght");
     return data.length;
   }
   async getTotalMoneyInAllAccounts() {
