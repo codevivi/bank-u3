@@ -10,15 +10,15 @@ import { GlobalContext } from "../../Contexts/GlobalCtx";
 export default function Accounts() {
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
   const { accounts, displayAccounts, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount } = useContext(AccountsContext);
-  const { stats, setStatsUpdateTime } = useContext(GlobalContext);
+  const { stats, updateStats } = useContext(GlobalContext);
   useEffect(() => {
     if (accounts === null) {
       return;
     }
     console.log("updating accounts");
-    setStatsUpdateTime(Date.now());
+    updateStats();
     console.log("should update stats");
-  }, [accounts]);
+  }, [accounts, updateStats]);
 
   if (accounts === null || displayAccounts === null) {
     return (

@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-
 import { v4 as uuid } from "uuid";
-import { GlobalContext } from "../Contexts/GlobalCtx";
+import { SERVER_BASE_PATH } from "../utils/config.js";
 
+const URL = SERVER_BASE_PATH + "/accounts";
 function useAccounts() {
   const [accounts, setAccounts] = useState(null);
   const [displayAccounts, setDisplayAccounts] = useState(accounts);
@@ -12,9 +12,8 @@ function useAccounts() {
   const [newAccount, setNewAccount] = useState(null);
   const [deleteAccount, setDeleteAccount] = useState(null);
   const [updateAccount, setUpdateAccount] = useState(null); //will save object with old(for save if server fails to delete) and new(updated) account
-  const { addMsg } = useContext(GlobalContext);
 
-  const URL = "http://localhost:5000/accounts";
+  const [message, setMessage] = useState(null);
 
   const sortBySurname = (accounts) => {
     return accounts.sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" }));
@@ -32,9 +31,9 @@ function useAccounts() {
       })
       .catch((e) => {
         console.log(e);
-        addMsg({ type: "error", text: `Atsiprašome, serverio klaida` });
+        setMessage({ type: "error", text: `Atsiprašome, serverio klaida` });
       });
-  }, [addMsg]);
+  }, []);
 
   // use sorted and filtered accounts for display if filter function set
   useEffect(() => {
@@ -54,7 +53,7 @@ function useAccounts() {
     const promiseId = uuid();
     //create fake id and display as created, only with blanked edit options
     setAccounts((accounts) => [...accounts, { ...newAccount, promiseId, id: promiseId }]);
-    addMsg({ type: "success", text: `Kliento (${newAccount.name} ${newAccount.surname}) sąskaita  sėkmingai sukurta.` });
+    setMessage({ type: "success", text: `Kliento (${newAccount.name} ${newAccount.surname}) sąskaita  sėkmingai sukurta.` });
 
     axios
       .post(URL, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
@@ -67,9 +66,9 @@ function useAccounts() {
       .catch((e) => {
         //in case server could not save account, remove account from display
         setAccounts((accounts) => accounts.filter((account) => account.promiseId !== promiseId));
-        addMsg({ type: "error", text: `Atsiprašome, įvyko serverio klaida kuriant sąskaitą (${newAccount.name} ${newAccount.surname})` });
+        setMessage({ type: "error", text: `Atsiprašome, įvyko serverio klaida kuriant sąskaitą (${newAccount.name} ${newAccount.surname})` });
       });
-  }, [newAccount, addMsg]);
+  }, [newAccount]);
 
   // DELETE account from db
   useEffect(() => {
@@ -87,9 +86,9 @@ function useAccounts() {
       })
       .catch((e) => {
         setAccounts((accounts) => [...accounts, { ...deleteAccount }]);
-        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida panaikinant sąskaitą (${deleteAccount.name} ${deleteAccount.surname})` });
+        setMessage({ type: "error", text: `Atsiprašome, įvyko klaida panaikinant sąskaitą (${deleteAccount.name} ${deleteAccount.surname})` });
       });
-  }, [deleteAccount, addMsg]);
+  }, [deleteAccount]);
 
   // UPDATE account in db
   useEffect(() => {
@@ -110,11 +109,11 @@ function useAccounts() {
       .catch((e) => {
         //if save edit in server did not happen restore previous account
         setAccounts((accounts) => accounts.map((account) => (account.promiseId === promiseId ? { ...updateAccount.old } : { ...account })));
-        addMsg({ type: "error", text: `Atsiprašome, įvyko klaida išsaugant sąskaitos (${updateAccount.old.name} ${updateAccount.old.surname}) pakeitimus` });
+        setMessage({ type: "error", text: `Atsiprašome, įvyko klaida išsaugant sąskaitos (${updateAccount.old.name} ${updateAccount.old.surname}) pakeitimus` });
       });
-  }, [updateAccount, addMsg]);
+  }, [updateAccount]);
 
-  return [accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount];
+  return [message, accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount];
 }
 
 export default useAccounts;

@@ -1,10 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { SERVER_BASE_PATH } from "../utils/config";
 
-const URL = "http://localhost:5000/stats";
+const URL = SERVER_BASE_PATH + "/stats";
+
 function useStats() {
   const [stats, setStats] = useState(null);
   const [statsUpdateTime, setStatsUpdateTime] = useState(Date.now());
+
+  const updateStats = useCallback(() => {
+    setStatsUpdateTime(Date.now());
+  }, []);
 
   useEffect(() => {
     axios
@@ -19,7 +25,7 @@ function useStats() {
       });
   }, [statsUpdateTime]);
 
-  return [stats, setStatsUpdateTime];
+  return [stats, updateStats];
 }
 
 export default useStats;

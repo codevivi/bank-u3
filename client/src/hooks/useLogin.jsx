@@ -1,6 +1,9 @@
-import { useState, useEffect, useCallback, useContext } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { GlobalContext } from "../Contexts/GlobalCtx";
+import { SERVER_BASE_PATH } from "../utils/config.js";
+
+const URL = SERVER_BASE_PATH + "/login";
+
 function useLogin(addMsg) {
   const [loginDetails, setLoginDetails] = useState(null);
   const [loginResponse, setLoginResponse] = useState(null);
@@ -15,8 +18,11 @@ function useLogin(addMsg) {
     }
 
     axios
-      .post("http://localhost:5000/login", { loginDetails: loginDetails }, { headers: { withCredentials: true } })
+      .post(URL, loginDetails, {
+        withCredentials: true,
+      })
       .then((res) => {
+        console.log(res);
         setLoginResponse(res.data);
       })
       .catch((e) => {

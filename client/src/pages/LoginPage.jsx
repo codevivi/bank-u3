@@ -5,14 +5,19 @@ import useLogin from "../hooks/useLogin";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { addMsg } = useContext(GlobalContext);
+  const { addMsg, setLoggedInUser } = useContext(GlobalContext);
   const [submitLoginDetails, loginResponse] = useLogin(addMsg);
 
   useEffect(() => {
     if (loginResponse === null) {
       return;
     }
-    console.log(loginResponse.message);
+    if (loginResponse.user) {
+      setLoggedInUser(loginResponse.user);
+      addMsg({ type: "success", text: "You are logged In" });
+    } else {
+      addMsg({ type: "error", text: loginResponse.message });
+    }
   }, [loginResponse]);
 
   const handleSubmit = (e) => {
@@ -38,11 +43,11 @@ function LoginPage() {
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email">Email</label>
-              <input onChange={handleEmailInput} id="email" type="email" value={email} />
+              <input onChange={handleEmailInput} id="email" required type="email" value={email} />
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <input onChange={handlePasswordInput} id="password" type="password" value={password} />
+              <input onChange={handlePasswordInput} id="password" required type="password" value={password} />
             </div>
             <button className="primary">Login</button>
           </form>

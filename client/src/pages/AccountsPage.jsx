@@ -1,4 +1,5 @@
 import Accounts from "../components/Accounts/Accounts.jsx";
+import { AccountsProvider } from "../Contexts/AccountsCtx.jsx";
 import { GlobalContext } from "../Contexts/GlobalCtx";
 import { useContext, useEffect } from "react";
 function AccountsPage() {
@@ -8,7 +9,9 @@ function AccountsPage() {
   }, [deleteAllMsg]);
   return (
     <>
-      <Accounts />
+      <AccountsProvider>
+        <Accounts />
+      </AccountsProvider>
     </>
   );
 }
