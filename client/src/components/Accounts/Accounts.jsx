@@ -9,16 +9,15 @@ import { GlobalContext } from "../../Contexts/GlobalCtx";
 
 export default function Accounts() {
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
-  const { accounts, displayAccounts, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount } = useContext(AccountsContext);
+  const { accounts, displayAccounts, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount, changed } = useContext(AccountsContext);
   const { stats, updateStats } = useContext(GlobalContext);
+
   useEffect(() => {
-    if (accounts === null) {
+    if (!changed) {
       return;
     }
-    console.log("updating accounts");
     updateStats();
-    console.log("should update stats");
-  }, [accounts, updateStats]);
+  }, [changed, updateStats]);
 
   if (accounts === null || displayAccounts === null) {
     return (

@@ -3,7 +3,16 @@ import axios from "axios";
 import { v4 as uuid } from "uuid";
 import { SERVER_BASE_PATH } from "../utils/config.js";
 
-const URL = SERVER_BASE_PATH + "/accounts";
+const accountsUrl = SERVER_BASE_PATH + "/accounts";
+//const getAllUrl = accountsUrl + "getAll";
+// const createUrl = accountsUrl + "/create";
+// const updateUrl = accountsUrl + "/update";
+// const deleteUrl = accountsUrl + "/delete";
+const getAllUrl = accountsUrl;
+const createUrl = accountsUrl;
+const updateUrl = accountsUrl;
+const deleteUrl = accountsUrl;
+
 function useAccounts() {
   const [accounts, setAccounts] = useState(null);
   const [displayAccounts, setDisplayAccounts] = useState(accounts);
@@ -12,6 +21,7 @@ function useAccounts() {
   const [newAccount, setNewAccount] = useState(null);
   const [deleteAccount, setDeleteAccount] = useState(null);
   const [updateAccount, setUpdateAccount] = useState(null); //will save object with old(for save if server fails to delete) and new(updated) account
+  const [changed, setChanged] = useState(false);
 
   const [message, setMessage] = useState(null);
 
@@ -22,7 +32,7 @@ function useAccounts() {
   // get from db
   useEffect(() => {
     axios
-      .get(URL, { headers: { withCredentials: true } })
+      .get(getAllUrl, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
@@ -56,12 +66,13 @@ function useAccounts() {
     setMessage({ type: "success", text: `Kliento (${newAccount.name} ${newAccount.surname}) sąskaita  sėkmingai sukurta.` });
 
     axios
-      .post(URL, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
+      .post(createUrl, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
         }
         setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null, id: res.data.id } : { ...account })));
+        setChanged(Date.now());
       })
       .catch((e) => {
         //in case server could not save account, remove account from display
@@ -78,11 +89,12 @@ function useAccounts() {
     setAccounts((accounts) => accounts.filter((account) => account.id !== deleteAccount.id));
 
     axios
-      .delete(URL + "/" + deleteAccount.id, { headers: { withCredentials: true } })
+      .delete(deleteUrl + "/" + deleteAccount.id, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
         }
+        setChanged(Date.now());
       })
       .catch((e) => {
         setAccounts((accounts) => [...accounts, { ...deleteAccount }]);
@@ -99,12 +111,13 @@ function useAccounts() {
     setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.old.id ? { ...account, ...updateAccount.new, promiseId } : { ...account }))); //old and new id same
 
     axios
-      .put(URL + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { headers: { withCredentials: true } })
+      .put(updateUrl + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { headers: { withCredentials: true } })
       .then((res) => {
         if (res.data.message !== "OK") {
           throw new Error();
         }
         setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null } : { ...account })));
+        setChanged(Date.now());
       })
       .catch((e) => {
         //if save edit in server did not happen restore previous account
@@ -113,7 +126,7 @@ function useAccounts() {
       });
   }, [updateAccount]);
 
-  return [message, accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount];
+  return [message, accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount, changed];
 }
 
 export default useAccounts;

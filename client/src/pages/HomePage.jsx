@@ -2,7 +2,6 @@ import Stats from "../components/Accounts/Stats";
 import pig from "../assets/images/pig.svg";
 import { GlobalContext } from "../Contexts/GlobalCtx";
 import { useContext, useEffect } from "react";
-import useStatsForHomePage from "../hooks/useStats";
 function HomePage() {
   const { deleteAllMsg, stats } = useContext(GlobalContext);
 

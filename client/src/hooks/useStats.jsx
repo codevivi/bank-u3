@@ -6,7 +6,7 @@ const URL = SERVER_BASE_PATH + "/stats";
 
 function useStats() {
   const [stats, setStats] = useState(null);
-  const [statsUpdateTime, setStatsUpdateTime] = useState(Date.now());
+  const [statsUpdateTime, setStatsUpdateTime] = useState(null);
 
   const updateStats = useCallback(() => {
     setStatsUpdateTime(Date.now());
@@ -14,7 +14,7 @@ function useStats() {
 
   useEffect(() => {
     axios
-      .get(URL, { headers: { withCredentials: true } })
+      .get(URL)
       .then((res) => {
         if (res.data.message === "OK") {
           setStats(res.data.stats);

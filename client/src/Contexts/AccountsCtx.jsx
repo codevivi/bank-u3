@@ -6,7 +6,7 @@ export const AccountsContext = createContext({});
 
 export function AccountsProvider({ children }) {
   const { addMsg } = useContext(GlobalContext);
-  const [message, accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount] = useAccounts();
+  const [message, accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount, changed] = useAccounts();
 
   useEffect(() => {
     if (message === null) {
@@ -15,5 +15,5 @@ export function AccountsProvider({ children }) {
     addMsg(message);
   }, [message, addMsg]);
 
-  return <AccountsContext.Provider value={{ accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount }}>{children}</AccountsContext.Provider>;
+  return <AccountsContext.Provider value={{ accounts, setAccounts, displayAccounts, setDisplayAccounts, filterFunc, setFilterFunc, setNewAccount, setDeleteAccount, setUpdateAccount, changed }}>{children}</AccountsContext.Provider>;
 }

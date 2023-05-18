@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import formatCurrency from "../../utils/formatCurrency";
-import { AccountsContext } from "../../Contexts/AccountsCtx";
 function Stats({ stats }) {
   return (
     <div className="info">
