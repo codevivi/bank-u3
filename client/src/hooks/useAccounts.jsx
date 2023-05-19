@@ -4,14 +4,6 @@ import { v4 as uuid } from "uuid";
 import { SERVER_BASE_PATH } from "../utils/config.js";
 
 const accountsUrl = SERVER_BASE_PATH + "/accounts";
-//const getAllUrl = accountsUrl + "getAll";
-// const createUrl = accountsUrl + "/create";
-// const updateUrl = accountsUrl + "/update";
-// const deleteUrl = accountsUrl + "/delete";
-const getAllUrl = accountsUrl;
-const createUrl = accountsUrl;
-const updateUrl = accountsUrl;
-const deleteUrl = accountsUrl;
 
 function useAccounts() {
   const [accounts, setAccounts] = useState(null);
@@ -32,15 +24,15 @@ function useAccounts() {
   // get from db
   useEffect(() => {
     axios
-      .get(getAllUrl, { headers: { withCredentials: true } })
+      .get(accountsUrl, { headers: { withCredentials: true } })
       .then((res) => {
-        if (res.data.message !== "OK") {
-          throw new Error();
+        console.log(res);
+        if (res.data.type !== "success") {
+          throw new Error(res.data.message || "unknown");
         }
         setAccounts(res.data.accounts);
       })
       .catch((e) => {
-        console.log(e);
         setMessage({ type: "error", text: `Atsiprašome, serverio klaida` });
       });
   }, []);
@@ -66,10 +58,10 @@ function useAccounts() {
     setMessage({ type: "success", text: `Kliento (${newAccount.name} ${newAccount.surname}) sąskaita  sėkmingai sukurta.` });
 
     axios
-      .post(createUrl, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
+      .post(accountsUrl, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
       .then((res) => {
-        if (res.data.message !== "OK") {
-          throw new Error();
+        if (res.data.type !== "success") {
+          throw new Error(res.data.message || "unknown");
         }
         setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null, id: res.data.id } : { ...account })));
         setChanged(Date.now());
@@ -89,10 +81,10 @@ function useAccounts() {
     setAccounts((accounts) => accounts.filter((account) => account.id !== deleteAccount.id));
 
     axios
-      .delete(deleteUrl + "/" + deleteAccount.id, { headers: { withCredentials: true } })
+      .delete(accountsUrl + "/" + deleteAccount.id, { headers: { withCredentials: true } })
       .then((res) => {
-        if (res.data.message !== "OK") {
-          throw new Error();
+        if (res.data.type !== "success") {
+          throw new Error(res.data.message || "unknown");
         }
         setChanged(Date.now());
       })
@@ -111,10 +103,10 @@ function useAccounts() {
     setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.old.id ? { ...account, ...updateAccount.new, promiseId } : { ...account }))); //old and new id same
 
     axios
-      .put(updateUrl + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { headers: { withCredentials: true } })
+      .put(accountsUrl + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { headers: { withCredentials: true } })
       .then((res) => {
-        if (res.data.message !== "OK") {
-          throw new Error();
+        if (res.data.type !== "success") {
+          throw new Error(res.data.message || "unknown");
         }
         setAccounts((accounts) => accounts.map((account) => (account.promiseId === res.data.promiseId ? { ...account, promiseId: null } : { ...account })));
         setChanged(Date.now());
