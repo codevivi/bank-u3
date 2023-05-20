@@ -16,7 +16,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />;
+              <Route element={<RequireAuth opposite={true} />}>
+                <Route path="/login" element={<LoginPage />} />;
+              </Route>
               <Route element={<RequireAuth />}>
                 <Route path="/accounts" element={<AccountsPage />} />;
               </Route>

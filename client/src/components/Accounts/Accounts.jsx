@@ -16,17 +16,6 @@ export default function Accounts() {
     deleteAllMsg();
   }, [deleteAllMsg]);
 
-  // useEffect(() => {
-  //   checkUser();
-  // }, [checkUser]);
-
-  // useEffect(() => {
-
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  // }, [user, navigate]);
-
   useEffect(() => {
     if (!changed) {
       return;
