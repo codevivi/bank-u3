@@ -26,7 +26,6 @@ function useAccounts() {
     axios
       .get(accountsUrl, { withCredentials: true })
       .then((res) => {
-        console.log(res);
         if (res.data.type !== "success") {
           throw new Error(res.data.message || "unknown");
         }
