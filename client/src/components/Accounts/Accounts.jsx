@@ -10,7 +10,22 @@ import { GlobalContext } from "../../Contexts/GlobalCtx";
 export default function Accounts() {
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
   const { accounts, displayAccounts, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount, changed } = useContext(AccountsContext);
-  const { stats, updateStats } = useContext(GlobalContext);
+  const { stats, updateStats, deleteAllMsg } = useContext(GlobalContext);
+
+  useEffect(() => {
+    deleteAllMsg();
+  }, [deleteAllMsg]);
+
+  // useEffect(() => {
+  //   checkUser();
+  // }, [checkUser]);
+
+  // useEffect(() => {
+
+  //   if (!user) {
+  //     navigate("/login");
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     if (!changed) {
@@ -22,7 +37,7 @@ export default function Accounts() {
   if (accounts === null || displayAccounts === null) {
     return (
       <section className="accounts">
-        <h1 style={{ fontSize: "48px" }}>Loading...</h1>;
+        <h1 style={{ fontSize: "48px" }}>Loading...</h1>
       </section>
     );
   }

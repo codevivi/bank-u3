@@ -7,6 +7,7 @@ import { authRoute } from "./src/routes/authRoutes.js";
 import { accountsRoute } from "./src/routes/accountsRoutes.js";
 import { stats } from "./src/controllers/statsController.js";
 import { wrongEndPoint } from "./src/middlewares/wrongEndPoint.js";
+import { protectRoute } from "./src/middlewares/protectRoute.js";
 
 const app = express();
 
@@ -21,8 +22,8 @@ app.use(session(sessionOptions));
 app.get("/api/", (req, res) => {
   res.send("Server is running");
 });
-app.use("/api/", authRoute);
-app.use("/api/accounts", accountsRoute);
+app.use("/api", authRoute);
+app.use("/api/accounts", protectRoute, accountsRoute);
 
 app.get("/api/stats", stats);
 app.use(wrongEndPoint);

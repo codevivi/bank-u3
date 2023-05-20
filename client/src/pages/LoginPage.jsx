@@ -1,24 +1,34 @@
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../Contexts/GlobalCtx";
 import useLogin from "../hooks/useLogin";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthCtx } from "../Contexts/AuthCtx";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { addMsg, setLoggedInUser } = useContext(GlobalContext);
+  const { addMsg, deleteAllMsg } = useContext(GlobalContext);
+  const { setAuthState } = useContext(AuthCtx);
   const [submitLoginDetails, loginResponse] = useLogin(addMsg);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    deleteAllMsg();
+  }, [deleteAllMsg]);
 
   useEffect(() => {
     if (loginResponse === null) {
       return;
     }
     if (loginResponse.user) {
-      setLoggedInUser(loginResponse.user);
-      addMsg({ type: "success", text: "You are logged In" });
+      setAuthState({ user: loginResponse.user });
+      navigate(from, { replace: true });
     } else {
       addMsg({ type: "error", text: loginResponse.message });
     }
-  }, [loginResponse]);
+  }, [loginResponse, addMsg, setAuthState, from, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

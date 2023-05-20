@@ -126,6 +126,12 @@
           background-color: $red;
         }
       }
+      &.warning {
+        color: $orange;
+        .new-indicator {
+          background-color: orange;
+        }
+      }
       &.success {
         color: $green;
         .new-indicator {

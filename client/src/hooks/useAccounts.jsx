@@ -24,7 +24,7 @@ function useAccounts() {
   // get from db
   useEffect(() => {
     axios
-      .get(accountsUrl, { headers: { withCredentials: true } })
+      .get(accountsUrl, { withCredentials: true })
       .then((res) => {
         console.log(res);
         if (res.data.type !== "success") {
@@ -33,7 +33,14 @@ function useAccounts() {
         setAccounts(res.data.accounts);
       })
       .catch((e) => {
-        setMessage({ type: "error", text: `Atsiprašome, serverio klaida` });
+        const res = e.response;
+        if (!res || res.status === 500) {
+          setMessage({ type: "error", text: `Atsiprašome, serverio klaida` });
+          return;
+        }
+        if (res.status === 401) {
+          setMessage({ type: "error", text: `Esate neprisijungęs` });
+        }
       });
   }, []);
 
@@ -58,7 +65,7 @@ function useAccounts() {
     setMessage({ type: "success", text: `Kliento (${newAccount.name} ${newAccount.surname}) sąskaita  sėkmingai sukurta.` });
 
     axios
-      .post(accountsUrl, { account: newAccount, promiseId }, { headers: { withCredentials: true } })
+      .post(accountsUrl, { account: newAccount, promiseId }, { withCredentials: true })
       .then((res) => {
         if (res.data.type !== "success") {
           throw new Error(res.data.message || "unknown");
@@ -81,7 +88,7 @@ function useAccounts() {
     setAccounts((accounts) => accounts.filter((account) => account.id !== deleteAccount.id));
 
     axios
-      .delete(accountsUrl + "/" + deleteAccount.id, { headers: { withCredentials: true } })
+      .delete(accountsUrl + "/" + deleteAccount.id, { withCredentials: true })
       .then((res) => {
         if (res.data.type !== "success") {
           throw new Error(res.data.message || "unknown");
@@ -103,7 +110,7 @@ function useAccounts() {
     setAccounts((accounts) => accounts.map((account) => (account.id === updateAccount.old.id ? { ...account, ...updateAccount.new, promiseId } : { ...account }))); //old and new id same
 
     axios
-      .put(accountsUrl + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { headers: { withCredentials: true } })
+      .put(accountsUrl + "/" + updateAccount.old.id, { account: updateAccount.new, promiseId }, { withCredentials: true })
       .then((res) => {
         if (res.data.type !== "success") {
           throw new Error(res.data.message || "unknown");

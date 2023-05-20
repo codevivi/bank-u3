@@ -8,7 +8,6 @@ export const getAll = async (req, res, next) => {
       accounts: accounts,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       type: "error",
       message: "Server Error",

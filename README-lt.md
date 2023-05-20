@@ -10,7 +10,7 @@ Banką sudaro du puslapiai su bendru meniu ir prisijungimo puslapis
 
 - [x] Taip pat patalpinti kažkokie grafiniai elementai, užpildantys puslapį.
 
-- [] Į šį puslapį gali patekti ir prisijungę ir neprisijungę vartotojai.
+- [x] Į šį puslapį gali patekti ir prisijungę ir neprisijungę vartotojai.
 
 **Antrame puslapyje yra**:
 
@@ -34,7 +34,7 @@ Banką sudaro du puslapiai su bendru meniu ir prisijungimo puslapis
 
 - [x] Padaryti filtravimą, kuris parodytų tučiasias sąskaitas ir sąskaitas turinčias lėšų.
 
-- [] Į šį puslapį gali patekti tik prisijungę vartotojai. Bandant patekti neprisijungusiam vartotojui, jis turi būti nukreipiamas į prisijungimo puslapį.
+- [x] Į šį puslapį gali patekti tik prisijungę vartotojai. Bandant patekti neprisijungusiam vartotojui, jis turi būti nukreipiamas į prisijungimo puslapį.
 
 **Prisijungimo puslapis**:
 
@@ -42,4 +42,4 @@ Banką sudaro du puslapiai su bendru meniu ir prisijungimo puslapis
 
 - [x] Vartotojai (vardas ir slaptažodžio hash) rankiniu būdu surašyti į JSON failą patalpintą Express serveryje (Kacius, kacius@pele.lt : Kacius123; Pelius, pelius@pele.lt:Pelius123).
 
-Meniu keičiasi priklausomai ar puslapyje yrra prisijungęs vartotojas ar ne. Prisijungusiam vartotojui meniu yra rodomas atsijungimo mygtukas ir jo vardas, o neprisijungusiam- linkas į prisijungimo puslapį.
+- [x] Meniu keičiasi priklausomai ar puslapyje yrra prisijungęs vartotojas ar ne. Prisijungusiam vartotojui meniu yra rodomas atsijungimo mygtukas ir jo vardas, o neprisijungusiam- linkas į prisijungimo puslapį.

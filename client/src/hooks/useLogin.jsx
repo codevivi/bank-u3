@@ -22,11 +22,28 @@ function useLogin(addMsg) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
-        setLoginResponse(res.data);
+        if (res.status === 200) {
+          setLoginResponse(res.data);
+        }
       })
       .catch((e) => {
-        console.log(e);
+        const res = e.response;
+        if (!res) {
+          addMsg({ type: "error", text: "Klaida komunikuojant su serveriu" });
+          return;
+        }
+        if (res.status === 401) {
+          addMsg({ type: "warning", text: res.data.message });
+          return;
+        }
+        if (res.status === 403) {
+          console.log("should be 403");
+          addMsg({ type: "error", text: "Jau prisijungta." });
+          return;
+        }
+        if (res.status === 500) {
+          addMsg({ type: "error", text: "Serverio klaida" });
+        }
       });
   }, [loginDetails, addMsg]);
 

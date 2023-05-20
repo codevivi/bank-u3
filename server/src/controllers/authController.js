@@ -4,7 +4,8 @@ import { comparePassword } from "../utils/crypt.js";
 
 export const login = async (req, res, next) => {
   if (req.session.isLoggedIn) {
-    res.json({ message: "already logged in" });
+    res.status(403).json({ type: "failure", message: "already logged in" });
+    return;
   }
   try {
     const { email, password } = req.body;
@@ -18,7 +19,7 @@ export const login = async (req, res, next) => {
       res.status(401).json({ type: "failure", message: "Netinkami prisijungimo duomenys." });
       return;
     } else {
-      const userWithoutPassword = { name: user.userName, email: user.email };
+      const userWithoutPassword = { name: user.username, email: user.email, id: user.id };
       req.session.isLoggedIn = true;
       req.session.user = userWithoutPassword;
       res.status(200).json({ type: "success", message: "OK", user: userWithoutPassword });
@@ -48,6 +49,8 @@ export const whoAmI = async (req, res, next) => {
 export const logout = (req, res, next) => {
   req.session.destroy();
   if (req.session) {
+    req.session.isLoggedIn = false;
+    req.session.user = null;
     req.session = null;
   }
   res.status(200).clearCookie(SESSION_COOKIE_NAME, { path: "/" }).json({
