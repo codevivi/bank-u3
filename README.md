@@ -45,6 +45,8 @@ This is react application with express server and json file db, authorization, l
    npm start
    ```
 
+7. Default **login details**: User1 (email: kacius@pele.lt , password: Kacius123); User2 (email: pelius@pele.lt, password: Pelius123);
+
    **further default react readme:**
 
 ### Getting Started with Create React App
