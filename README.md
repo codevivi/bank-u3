@@ -2,7 +2,7 @@
 
 ## 📋 About
 
-2023-05-15 assignment
+2023-05-22 assignment
 
 This is react application with express server and json file db, authorization, login, logout functionality.
 
@@ -25,7 +25,9 @@ This is react application with express server and json file db, authorization, l
    npm install
    ```
 
-4. to start server (will run on [http://localhost:5000](http://localhost:5000)) : run below command in bank-u2-server directory
+4. Add .env file with example.env content in server directory.
+
+5. to start server (will run on [http://localhost:5000](http://localhost:5000)) : run below command in bank-u3 server directory
 
    ```sh
    npm start
@@ -37,7 +39,7 @@ This is react application with express server and json file db, authorization, l
    npm run dev
    ```
 
-5. to start react application (will run on [http://localhost:3000](http://localhost:3000)) : run below command in bank-u2-client directory
+6. to start react application (will run on [http://localhost:3000](http://localhost:3000)) : run below command in bank-u3 client directory
 
    ```sh
    npm start
