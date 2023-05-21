@@ -1,22 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../Contexts/GlobalCtx";
-import useLogin from "../hooks/useLogin";
 import { useLocation, useNavigate } from "react-router-dom";
+import { GlobalContext } from "../Contexts/GlobalCtx";
 import { AuthCtx } from "../Contexts/AuthCtx";
+import useLogin from "../hooks/useLogin";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { addMsg, deleteAllMsg } = useContext(GlobalContext);
+  const { addMsg } = useContext(GlobalContext);
   const { setAuthState } = useContext(AuthCtx);
-  const [submitLoginDetails, loginResponse] = useLogin(addMsg);
+  const [setLoginRequestCallback, loginResponse] = useLogin(addMsg);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
-  useEffect(() => {
-    deleteAllMsg();
-  }, [deleteAllMsg]);
 
   useEffect(() => {
     if (loginResponse === null) {
@@ -33,7 +29,7 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      submitLoginDetails({ email, password });
+      setLoginRequestCallback({ email, password });
       setEmail("");
       setPassword("");
     }

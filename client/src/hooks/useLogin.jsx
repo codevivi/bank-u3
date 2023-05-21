@@ -5,20 +5,20 @@ import { SERVER_BASE_PATH } from "../utils/config.js";
 const URL = SERVER_BASE_PATH + "/login";
 
 function useLogin(addMsg) {
-  const [loginDetails, setLoginDetails] = useState(null);
+  const [loginRequest, setLoginRequest] = useState(null);
   const [loginResponse, setLoginResponse] = useState(null);
 
-  const submitLoginDetails = useCallback((details) => {
-    setLoginDetails(details);
+  const setLoginRequestCallback = useCallback((details) => {
+    setLoginRequest(details);
   }, []);
 
   useEffect(() => {
-    if (loginDetails === null) {
+    if (loginRequest === null) {
       return;
     }
 
     axios
-      .post(URL, loginDetails, {
+      .post(URL, loginRequest, {
         withCredentials: true,
       })
       .then((res) => {
@@ -45,9 +45,9 @@ function useLogin(addMsg) {
           addMsg({ type: "error", text: "Serverio klaida" });
         }
       });
-  }, [loginDetails, addMsg]);
+  }, [loginRequest, addMsg]);
 
-  return [submitLoginDetails, loginResponse];
+  return [setLoginRequestCallback, loginResponse];
 }
 
 export default useLogin;

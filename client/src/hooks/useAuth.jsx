@@ -15,9 +15,9 @@ function useAuth(addMsg) {
   }, []);
 
   useEffect(() => {
-    if (authCheckTime === null) {
-      return;
-    }
+    // if (authCheckTime === null) {
+    //   return;
+    // }
     axios
       .get(SERVER_BASE_PATH + "/whoAmI", { withCredentials: true })
       .then((res) => {

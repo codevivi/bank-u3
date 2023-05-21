@@ -1,13 +1,10 @@
 import Stats from "../components/Accounts/Stats";
 import pig from "../assets/images/pig.svg";
 import { GlobalContext } from "../Contexts/GlobalCtx";
-import { useContext, useEffect } from "react";
-function HomePage() {
-  const { deleteAllMsg, stats } = useContext(GlobalContext);
+import { useContext } from "react";
 
-  useEffect(() => {
-    deleteAllMsg();
-  }, [deleteAllMsg]);
+function HomePage() {
+  const { stats } = useContext(GlobalContext);
 
   return (
     <div className="home-page">

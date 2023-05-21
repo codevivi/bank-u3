@@ -1,12 +1,12 @@
 import { GlobalProvider } from "./Contexts/GlobalCtx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./Contexts/AuthCtx";
+import RequireAuth from "./components/RequireAuth";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import AccountsPage from "./pages/AccountsPage.jsx";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "./Contexts/AuthCtx";
-import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
