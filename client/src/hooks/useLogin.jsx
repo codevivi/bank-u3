@@ -7,12 +7,10 @@ const URL = SERVER_BASE_PATH + "/login";
 
 function useLogin(addMsg, setAuthState) {
   const [loginRequest, setLoginRequest] = useState(null);
-  // const [loginResponse, setLoginResponse] = useState(null);
-  // const { setAuthState } = useContext(AuthCtx);
-  // const [setLoginRequestCallback, loginResponse] = useLogin(addMsg);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
   const setLoginRequestCallback = useCallback((details) => {
     setLoginRequest(details);
   }, []);
@@ -53,7 +51,7 @@ function useLogin(addMsg, setAuthState) {
           addMsg({ type: "error", text: "Serverio klaida" });
         }
       });
-  }, [loginRequest, addMsg]);
+  }, [loginRequest, addMsg, from, navigate, setAuthState]);
 
   return [setLoginRequestCallback];
 }

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../Contexts/GlobalCtx";
 import { AuthCtx } from "../Contexts/AuthCtx";
 import useLogin from "../hooks/useLogin";
