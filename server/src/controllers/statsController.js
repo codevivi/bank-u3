@@ -1,4 +1,5 @@
 import { accountsModel } from "../models/allModels.js";
+
 export const stats = async (req, res, next) => {
   try {
     const [count, totalMoney] = await Promise.all([accountsModel.getAllAccountsCount(), accountsModel.getTotalMoneyInAllAccounts()]);

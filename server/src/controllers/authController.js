@@ -29,7 +29,7 @@ export const login = async (req, res, next) => {
   }
 };
 
-export const whoAmI = async (req, res, next) => {
+export const whoAmI = (req, res, next) => {
   if (req.session.isLoggedIn) {
     res.status(200).json({
       type: "success",
@@ -49,8 +49,6 @@ export const whoAmI = async (req, res, next) => {
 export const logout = (req, res, next) => {
   req.session.destroy();
   if (req.session) {
-    req.session.isLoggedIn = false;
-    req.session.user = null;
     req.session = null;
   }
   res.status(200).clearCookie(SESSION_COOKIE_NAME, { path: "/" }).json({

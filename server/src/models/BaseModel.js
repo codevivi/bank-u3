@@ -1,6 +1,6 @@
 import { writeFile, readFile } from "node:fs/promises";
-const DB_PATH = new URL("./../../Data/", import.meta.url).pathname;
 import { v4 as uuid } from "uuid";
+const DB_PATH = new URL("./../../Data/", import.meta.url).pathname;
 
 class BaseModel {
   constructor(fileName) {
@@ -40,9 +40,3 @@ class BaseModel {
   }
 }
 export default BaseModel;
-// const A = new BaseModel("data.json");
-// async function log() {
-//   let bla = await A.getAll();
-//   console.log(bla);
-// }
-// log();

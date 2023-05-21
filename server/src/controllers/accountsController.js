@@ -1,4 +1,5 @@
 import { accountsModel } from "../models/allModels.js";
+
 export const getAll = async (req, res, next) => {
   try {
     const accounts = await accountsModel.getAll();
@@ -14,6 +15,7 @@ export const getAll = async (req, res, next) => {
     });
   }
 };
+
 export const create = async (req, res, next) => {
   try {
     const id = await accountsModel.add(req.body.account);

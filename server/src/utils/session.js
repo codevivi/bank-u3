@@ -15,7 +15,7 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: false, //won't save session if not modified
   cookie: {
-    secure: NODE_ENV === "development" ? false : true, //but then for dev needs trust proxy, 1
+    secure: NODE_ENV === "development" ? false : true,
     httpOnly: true,
     name: SESSION_COOKIE_NAME,
   },

@@ -2,6 +2,7 @@ import BaseModel from "./BaseModel.js";
 
 const ACCOUNTS_DB_FILE_NAME = "accounts.json";
 const USERS_DB_FILE_NAME = "users.json";
+
 class AccountsModel extends BaseModel {
   constructor(fileName) {
     super(fileName);
@@ -15,6 +16,7 @@ class AccountsModel extends BaseModel {
     return accounts.reduce((acc, curr) => acc + curr.money, 0);
   }
 }
+
 class UsersModel extends BaseModel {
   constructor(fileName) {
     super(fileName);
@@ -24,5 +26,6 @@ class UsersModel extends BaseModel {
     return all.find((item) => item.email === email);
   }
 }
+
 export const accountsModel = new AccountsModel(ACCOUNTS_DB_FILE_NAME);
 export const usersModel = new UsersModel(USERS_DB_FILE_NAME);
