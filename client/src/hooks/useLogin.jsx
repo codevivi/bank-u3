@@ -1,13 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER_BASE_PATH } from "../utils/config.js";
 
 const URL = SERVER_BASE_PATH + "/login";
 
-function useLogin(addMsg) {
+function useLogin(addMsg, setAuthState) {
   const [loginRequest, setLoginRequest] = useState(null);
-  const [loginResponse, setLoginResponse] = useState(null);
-
+  // const [loginResponse, setLoginResponse] = useState(null);
+  // const { setAuthState } = useContext(AuthCtx);
+  // const [setLoginRequestCallback, loginResponse] = useLogin(addMsg);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const setLoginRequestCallback = useCallback((details) => {
     setLoginRequest(details);
   }, []);
@@ -16,14 +21,17 @@ function useLogin(addMsg) {
     if (loginRequest === null) {
       return;
     }
-
     axios
       .post(URL, loginRequest, {
         withCredentials: true,
       })
       .then((res) => {
-        if (res.status === 200) {
-          setLoginResponse(res.data);
+        if (res.status === 200 && res.data.user) {
+          setAuthState({ user: res.data.user });
+          navigate(from, { replace: true });
+          // setLoginResponse(res.data);
+        } else {
+          addMsg({ type: "error", text: res.data.message || "Unknown error" });
         }
       })
       .catch((e) => {
@@ -47,7 +55,7 @@ function useLogin(addMsg) {
       });
   }, [loginRequest, addMsg]);
 
-  return [setLoginRequestCallback, loginResponse];
+  return [setLoginRequestCallback];
 }
 
 export default useLogin;

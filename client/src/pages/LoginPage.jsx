@@ -9,22 +9,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const { addMsg } = useContext(GlobalContext);
   const { setAuthState } = useContext(AuthCtx);
-  const [setLoginRequestCallback, loginResponse] = useLogin(addMsg);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
-
-  useEffect(() => {
-    if (loginResponse === null) {
-      return;
-    }
-    if (loginResponse.user) {
-      setAuthState({ user: loginResponse.user });
-      navigate(from, { replace: true });
-    } else {
-      addMsg({ type: "error", text: loginResponse.message });
-    }
-  }, [loginResponse, addMsg, setAuthState, from, navigate]);
+  const [setLoginRequestCallback] = useLogin(addMsg, setAuthState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
