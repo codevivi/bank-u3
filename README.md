@@ -47,7 +47,11 @@ This is react application with express server and json file db, authorization, l
 
 7. Default **login details**: User1 (email: kacius@pele.lt , password: Kacius123); User2 (email: pelius@pele.lt, password: Pelius123);
 
-   **further default react readme:**
+![home screen screenshot](./screenshots/home-screenshot.png)
+![login screen screenshot](./screenshots/login-screenshot.png)
+![accounts screen screenshot](./screenshots/accounts-screenshot.png)
+
+**further default react readme:**
 
 ### Getting Started with Create React App
 

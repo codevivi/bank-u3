@@ -5,9 +5,9 @@ function ConfirmDelete({ close, account, handleDelete }) {
     <Modal close={close}>
       <div className="confirm-delete">
         <h2>
-          Are you sure you want to DELETE account ({account.name} {account.surname})?
+          Ar tikrai norite ištrinti sąskaitą: {account.name} {account.surname}?
         </h2>
-        <button onClick={handleDelete}>Delete account</button>
+        <button onClick={handleDelete}>Ištrinti</button>
       </div>
     </Modal>
   );
