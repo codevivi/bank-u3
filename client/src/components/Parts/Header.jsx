@@ -22,7 +22,7 @@ function Header() {
             <ul>
               {auth?.user && path !== "/accounts" && (
                 <li>
-                  <Link to="/accounts">Accounts</Link>
+                  <Link to="/accounts">Sąskaitos</Link>
                 </li>
               )}
               {auth?.user && (

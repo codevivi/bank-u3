@@ -42,4 +42,4 @@ Banką sudaro du puslapiai su bendru meniu ir prisijungimo puslapis
 
 - [x] Vartotojai (vardas ir slaptažodžio hash) rankiniu būdu surašyti į JSON failą patalpintą Express serveryje (Kacius, kacius@pele.lt : Kacius123; Pelius, pelius@pele.lt:Pelius123).
 
-- [x] Meniu keičiasi priklausomai ar puslapyje yrra prisijungęs vartotojas ar ne. Prisijungusiam vartotojui meniu yra rodomas atsijungimo mygtukas ir jo vardas, o neprisijungusiam- linkas į prisijungimo puslapį.
+- [x] Meniu keičiasi priklausomai ar puslapyje yra prisijungęs vartotojas ar ne. Prisijungusiam vartotojui meniu yra rodomas atsijungimo mygtukas ir jo vardas, o neprisijungusiam- linkas į prisijungimo puslapį.

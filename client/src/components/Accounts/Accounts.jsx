@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AccountsContext } from "../../Contexts/AccountsCtx";
+import { GlobalContext } from "../../Contexts/GlobalCtx";
 import AddAccount from "./AddAccount";
 import OneAccountRow from "./OneAccountRow";
 import Filter from "./Filter";
 import Stats from "./Stats";
-import { useContext } from "react";
-import { AccountsContext } from "../../Contexts/AccountsCtx";
-import { GlobalContext } from "../../Contexts/GlobalCtx";
 
 export default function Accounts() {
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
   const { accounts, displayAccounts, setFilterFunc, setNewAccount, setDeleteAccountId, setUpdateAccount, changed } = useContext(AccountsContext);
-  const { stats, updateStats, deleteAllMsg } = useContext(GlobalContext);
-
-  useEffect(() => {
-    deleteAllMsg();
-  }, [deleteAllMsg]);
+  const { stats, updateStats } = useContext(GlobalContext);
 
   useEffect(() => {
     if (!changed) {
